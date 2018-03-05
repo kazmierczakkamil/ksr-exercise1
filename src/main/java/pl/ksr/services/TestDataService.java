@@ -13,7 +13,7 @@ import java.util.List;
 public class TestDataService {
 
     // getting array of ArticleWithPlace with places in param, path to file
-    public static ArticleWithPlace[] getData(String path, String[] places) {
+    public static List<ArticleWithPlace> getData(String path, String[] places) {
         List<ArticleWithPlace> articleWithPlaces = new ArrayList<>();
         String data = prepareFile(path);
 
@@ -43,7 +43,7 @@ public class TestDataService {
                 articleWithPlaces.add(new ArticleWithPlace(place, article));
         }
 
-        return articleWithPlaces.toArray(new ArticleWithPlace[0]);
+        return articleWithPlaces;
     }
 
     // reading file and changing tags <body> to <article> (tags <body> don't work as other>
