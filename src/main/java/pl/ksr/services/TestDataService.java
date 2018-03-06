@@ -4,7 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import pl.ksr.model.ArticleWithPlace;
+import pl.ksr.model.Article;
+import pl.ksr.model.LabelType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,50 +13,66 @@ import java.util.List;
 // reading data from file
 public class TestDataService {
 
-    // getting array of ArticleWithPlace with places in param, path to file
-    public static List<ArticleWithPlace> getData(String path, String[] places) {
-        List<ArticleWithPlace> articleWithPlaces = new ArrayList<>();
+    public static List<Article> getData(String path, String[] labels, LabelType labelType) {
+        List<Article> articles = new ArrayList<>();
         String data = prepareFile(path);
 
         Document doc = Jsoup.parse(data);
         Elements reuters = doc.select("reuters");
 
         for (Element reuter : reuters) {
-            String place;
-            String article;
+            String label = null;
+            String articleBody;
 
             try {
-                place = reuter.selectFirst("places").text();
-                article = reuter.selectFirst("article").text();
+                if (labelType == LabelType.PLACE)
+                    label = reuter.selectFirst("places").text();
+                else if (labelType == LabelType.TOPIC)
+                    label = reuter.selectFirst("topics").text();
+                else if (labelType == LabelType.DATELINE)
+                    label = reuter.select("dateline").text();
+                articleBody = reuter.selectFirst("article").text();
             } catch (NullPointerException e) {
                 continue;
             }
 
-            boolean isPlaceCorrect = false;
-            for (String placeParam : places) {
-                if (placeParam.equals(place)) {
-                    isPlaceCorrect = true;
+            boolean isLabelCorrect = false;
+            for (String labelParam : labels) {
+                if (labelParam.equals(label)) {
+                    isLabelCorrect = true;
                     break;
                 }
             }
 
-            if (isPlaceCorrect)
-                articleWithPlaces.add(new ArticleWithPlace(place, article));
+            if (isLabelCorrect) {
+                Article temp = new Article();
+
+                if (labelType == LabelType.PLACE)
+                    temp.setPlace(label);
+                else if (labelType == LabelType.TOPIC)
+                    temp.setTopic(label);
+                else if (labelType == LabelType.DATELINE)
+                    temp.setDateline(label);
+
+                temp.setArticleBody(articleBody);
+                articles.add(temp);
+            }
         }
 
-        return articleWithPlaces;
+        return articles;
+
     }
 
-    // reading file and changing tags <body> to <article> (tags <body> don't work as other>
     private static String prepareFile(String path) {
         String document = FileService.readFile(path);
         return validateDocument(document);
     }
 
-    // changing tags body to article
     private static String validateDocument(String document) {
         return document
                 .replace("<BODY>", "<ARTICLE>")
                 .replace("</BODY>", "</ARTICLE>");
     }
 }
+
+
