@@ -1,24 +1,30 @@
 package pl.ksr;
 
 import pl.ksr.model.ClassifiableData;
+import pl.ksr.model.ResultData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KNNClassifier {
     int k;
     String[] labels;
     List<ClassifiableData> trainingData;
-    List<ClassifiableData> testData;
 
-    KNNClassifier(int k, String[] labels,List<ClassifiableData> trainingData,
-            List<ClassifiableData> testData){
+    KNNClassifier(int k, String[] labels,List<ClassifiableData> trainingData){
         this.k = k;
         this.labels = labels;
         this.trainingData = trainingData;
-        this.testData = testData;
+
     }
 
-
+    public List<ResultData> classify(List<ClassifiableData> testData){
+        List<ResultData> results = new ArrayList<>();
+        for(ClassifiableData data : testData){
+            results.add(new ResultData());
+        }
+        return results;
+    }
 
 
 }
