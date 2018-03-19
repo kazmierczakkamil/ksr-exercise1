@@ -15,7 +15,6 @@ public class KNNClassifier {
         this.k = k;
         this.labels = labels;
         this.trainingData = trainingData;
-
     }
 
     public List<ResultData> classify(List<ClassifiableData> testData){

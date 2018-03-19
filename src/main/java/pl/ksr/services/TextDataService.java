@@ -6,14 +6,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import pl.ksr.model.Article;
 import pl.ksr.model.LabelType;
+import pl.ksr.similarityMethods.SimilarityMethod;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // reading data from file
-public class TestDataService {
+public class TextDataService {
 
-    public static List<Article> getData(String path, String[] labels, LabelType labelType) {
+    public static List<Article> getData(String path, String[] labels,
+                                        LabelType labelType, SimilarityMethod simMethod) {
         List<Article> articles = new ArrayList<>();
         String data = prepareFile(path);
 
@@ -45,16 +47,7 @@ public class TestDataService {
             }
 
             if (isLabelCorrect) {
-                Article temp = new Article();
-
-                if (labelType == LabelType.PLACE)
-                    temp.setPlace(label);
-                else if (labelType == LabelType.TOPIC)
-                    temp.setTopic(label);
-                else if (labelType == LabelType.DATELINE)
-                    temp.setDateline(label);
-
-                temp.setArticleBody(articleBody);
+                Article temp = new Article(label,simMethod,articleBody);
                 articles.add(temp);
             }
         }

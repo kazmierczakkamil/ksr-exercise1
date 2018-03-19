@@ -1,12 +1,13 @@
 package pl.ksr.model;
 
-import lombok.Data;
+import pl.ksr.similarityMethods.SimilarityMethod;
 
-@Data
-public class Article {
+public class Article extends ClassifiableData{
 
-    private String place;
-    private String topic;
-    private String dateline;
-    private String articleBody;
+    public String articleBody;
+
+    public Article(String label, SimilarityMethod simMethod, String articleBody) {
+        super(label,simMethod);
+        this.articleBody = articleBody;
+    }
 }

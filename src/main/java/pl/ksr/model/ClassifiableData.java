@@ -3,7 +3,7 @@ package pl.ksr.model;
 import pl.ksr.similarityMethods.SimilarityMethod;
 
 public class ClassifiableData {
-    String label;
+    public String label;
     SimilarityMethod simMethod;
 
     ClassifiableData(String label, SimilarityMethod simMethod){
@@ -13,5 +13,9 @@ public class ClassifiableData {
 
     double calcSimilarityTo(ClassifiableData data) {
         return simMethod.calcSimilarity(this,data);
+    }
+
+    public void setSimilarity(SimilarityMethod simMethod){
+        this.simMethod = simMethod;
     }
 }
