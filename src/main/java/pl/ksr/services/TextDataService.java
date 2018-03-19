@@ -15,7 +15,7 @@ import java.util.List;
 public class TextDataService {
 
     public static List<Article> getData(String path, String[] labels,
-                                        LabelType labelType, SimilarityMethod simMethod) {
+                                        LabelType labelType) {
         List<Article> articles = new ArrayList<>();
         String data = prepareFile(path);
 
@@ -47,7 +47,7 @@ public class TextDataService {
             }
 
             if (isLabelCorrect) {
-                Article temp = new Article(label,simMethod,articleBody);
+                Article temp = new Article(label,articleBody);
                 articles.add(temp);
             }
         }

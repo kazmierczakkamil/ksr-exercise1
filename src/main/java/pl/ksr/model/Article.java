@@ -6,8 +6,8 @@ public class Article extends ClassifiableData{
 
     public String articleBody;
 
-    public Article(String label, SimilarityMethod simMethod, String articleBody) {
-        super(label,simMethod);
+    public Article(String label, String articleBody) {
+        super(label);
         this.articleBody = articleBody;
     }
 }
