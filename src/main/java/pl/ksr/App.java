@@ -1,24 +1,38 @@
 package pl.ksr;
 
-import pl.ksr.model.Article;
-import pl.ksr.model.LabelType;
-import pl.ksr.services.TestDataService;
+import edu.stanford.nlp.simple.Sentence;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class App {
+
+
+
+
     public static void main(String[] args) throws IOException {
-        List<Article> articlesWithPlaces = new ArrayList<Article>();
-        for(int i=0; i<=21; ++i) {
-            articlesWithPlaces.addAll(
-                TestDataService.getData("reut2-"+String.format("%03d", i)+".sgm",
-                                        new String[]{"usa", "argentina"}, LabelType.PLACE));
+//        List<Article> articlesWithPlaces = new ArrayList<Article>();
+//        for(int i=0; i<=21; ++i) {
+//            articlesWithPlaces.addAll(
+//                TestDataService.getData("reut2-"+String.format("%03d", i)+".sgm",
+//                                        new String[]{"usa", "argentina"}, LabelType.PLACE));
+//    }
+//
+//        for (Article awp : articlesWithPlaces) {
+//            System.out.println(awp);
+//        }
+
+        String string = "cars movies training trains eggs ate eaten moving car ";
+
+        for (String val : getLemmasList(string)) {
+            System.out.println(val);
+        }
+
     }
 
-        for (Article awp : articlesWithPlaces) {
-            System.out.println(awp);
-        }
+    public static List<String> getLemmasList(String text) {
+        Sentence sentence = new Sentence(text);
+        return sentence.lemmas();
     }
+
 }
