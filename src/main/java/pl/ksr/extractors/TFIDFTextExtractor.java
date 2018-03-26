@@ -12,22 +12,23 @@ import java.util.Map;
 public class TFIDFTextExtractor {
     public static List<ExtractedData> extractFrom(List<Article> articles) {
         List<ExtractedData> extractedData = new ArrayList<>();
-        Map<String,Double> occurrencesInAllDocuments = new HashMap<>();
+        Map<String, Double> occurrencesInAllDocuments = new HashMap<>();
         ExtractedData tmp = null;
-        for(Article article : articles){
-            String wordsBeforeLammatization = article.articleBody
+        for (Article article : articles) {
+            String wordsBeforeLemmatization = article.articleBody
                     .replaceAll("[^a-zA-Z ]", "").toLowerCase();
-            List<String> words = Lemmatizer.getLemmasList(wordsBeforeLammatization);
+            List<String> words = Lemmatizer.getLemmasList(wordsBeforeLemmatization);
 
             tmp = new ExtractedData(article.label);
-            for(String word : words){
-                if(tmp.features.containsKey(word))
-                    tmp.features.put(word,tmp.features.get(word)+1);
-                else tmp.features.put(word,1.0);
-                if(!occurrencesInAllDocuments.containsKey(word))
-                    occurrencesInAllDocuments.put(word,1.0);
-                else if(!tmp.features.containsKey(word))
-                    occurrencesInAllDocuments.put(word,occurrencesInAllDocuments.get(word)+1.0);
+            for (String word : words) {
+                if (tmp.features.containsKey(word))
+                    tmp.features.put(word, tmp.features.get(word) + 1);
+                else {
+                    tmp.features.put(word, 1.0);
+                    if (occurrencesInAllDocuments.containsKey(word))
+                        occurrencesInAllDocuments.put(word, occurrencesInAllDocuments.get(word) + 1);
+                    else occurrencesInAllDocuments.put(word, 1.0);
+                }
             }
             extractedData.add(tmp);
         }
