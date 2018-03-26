@@ -23,6 +23,7 @@ public class TFTextExtractor {
             }
             extractedData.add(tmp);
         }
+        System.out.println(extractedData.size());
         return extractedData;
     }
 }

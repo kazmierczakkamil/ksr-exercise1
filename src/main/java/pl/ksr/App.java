@@ -23,7 +23,7 @@ public class App {
         for(int i=0; i<=21; ++i) {
             articles.addAll(
                 TextDataService.getData("reut2-"+String.format("%03d", i)+".sgm",
-                                        new String[]{"usa", "argentina"}, LabelType.PLACE));
+                                        new String[]{"usa", "france", "uk", "canada", "japan", "west-germany"}, LabelType.PLACE));
         }
 
 
