@@ -19,7 +19,7 @@ public class TFTextExtractor {
             for(String word : words){
                 if(tmp.features.containsKey(word))
                     tmp.features.put(word,tmp.features.get(word)+1);
-                else tmp.features.put(word,1);
+                else tmp.features.put(word,1.0);
             }
             extractedData.add(tmp);
         }

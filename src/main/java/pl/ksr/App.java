@@ -1,12 +1,19 @@
 package pl.ksr;
 
+import pl.ksr.extractors.TFIDFTextExtractor;
+import pl.ksr.extractors.TFTextExtractor;
 import pl.ksr.model.Article;
+import pl.ksr.model.ExtractedData;
 import pl.ksr.model.LabelType;
 import pl.ksr.services.TextDataService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+
+import static pl.ksr.extractors.TFIDFTextExtractor.extractFrom;
 
 public class App {
 
@@ -19,9 +26,15 @@ public class App {
                                         new String[]{"usa", "argentina"}, LabelType.PLACE));
         }
 
-        for (Article awp : articles) {
-            System.out.println(awp);
-        }
+
+        long tfStart = System.currentTimeMillis();
+        List<ExtractedData> tf = TFTextExtractor.extractFrom(articles);
+        System.out.println("TF: " + (System.currentTimeMillis() - tfStart) / 1000);
+
+        long tfidfStart = System.currentTimeMillis();
+        List<ExtractedData> tfidf = TFIDFTextExtractor.extractFrom(articles);
+        System.out.println("TF-IDF: " + (System.currentTimeMillis() - tfidfStart) / 1000);
+
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ExtractedData {
     String label;
-    public Map<String,Integer> features;
+    public Map<String,Double> features;
 
     public ExtractedData(String label){
         this.label = label;

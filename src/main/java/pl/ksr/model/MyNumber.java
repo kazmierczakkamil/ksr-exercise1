@@ -7,7 +7,7 @@ public class MyNumber extends ClassifiableData {
     double data;
 
     public MyNumber(String label, SimilarityMethod simMethod, double data){
-        super(label, simMethod);
+        super(label);
         this.data = data;
     }
 }
