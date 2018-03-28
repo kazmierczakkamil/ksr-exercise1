@@ -1,7 +1,5 @@
 package pl.ksr.model;
 
-import pl.ksr.similarityMethods.SimilarityMethod;
-
 public class Article extends ClassifiableData{
 
     public String articleBody;

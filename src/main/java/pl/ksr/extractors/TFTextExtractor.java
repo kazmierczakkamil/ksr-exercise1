@@ -7,9 +7,9 @@ import pl.ksr.services.Lemmatizer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TFTextExtractor {
+public class TFTextExtractor implements Extractor {
 
-    public static List<ExtractedData> extractFrom(List<Article> articles){
+    public List<ExtractedData> extractFrom(List<Article> articles){
         List<ExtractedData> extractedData = new ArrayList<>();
         ExtractedData tmp = null;
         for(Article article : articles){
