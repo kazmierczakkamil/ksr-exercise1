@@ -33,7 +33,7 @@ public class App {
 
         int trainingDataSize = 8000;
         int k = 9;
-        Metric metric = new JaccardMetric();
+        Metric metric = new EuclideanMetric();
         Extractor extractor = new TFIDFTextExtractor();
 
         long startExtraction = System.currentTimeMillis();
