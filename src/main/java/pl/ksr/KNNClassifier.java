@@ -20,14 +20,6 @@ public class KNNClassifier {
         this.trainingData = trainingData;
     }
 
-    public List<ResultData> classify(List<ClassifiableData> testData) {
-        List<ResultData> results = new ArrayList<>();
-        for (ClassifiableData data : testData) {
-            // results.add(new ResultData());
-        }
-        return results;
-    }
-
     public List<ResultData> classify(List<ExtractedData> testData, Metric metric) {
         List<ResultData> results = new ArrayList<>();
 
