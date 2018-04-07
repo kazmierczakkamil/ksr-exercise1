@@ -34,7 +34,6 @@ public class TFIDFTextExtractor {
         }
 
         int amountOfDocuments = extractedData.size();
-        int i = 0;
 
         long startTime = System.currentTimeMillis();
         for (ExtractedData document : extractedData) {
@@ -51,9 +50,6 @@ public class TFIDFTextExtractor {
                 double idf = Math.log(amountOfDocuments / occurrencesInAllDocuments.get(word));
                 document.features.compute(word, (key, value) -> value / allTermOccurrences * idf);
             }
-            i++;
-            System.out.print(i);
-            System.out.println(" idf: " + (System.currentTimeMillis() - startTime));
         }
         return extractedData;
     }

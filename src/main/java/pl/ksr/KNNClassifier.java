@@ -18,9 +18,9 @@ public class KNNClassifier {
         this.trainingData = trainingData;
     }
 
-    public List<ResultData> classify(List<ClassifiableData> testData){
+    public List<ResultData> classify(List<ExtractedData> testData){
         List<ResultData> results = new ArrayList<>();
-        for(ClassifiableData data : testData){
+        for(ExtractedData data : testData){
             results.add(new ResultData());
         }
         return results;
