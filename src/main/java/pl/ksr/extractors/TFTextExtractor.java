@@ -3,6 +3,7 @@ package pl.ksr.extractors;
 import pl.ksr.model.Article;
 import pl.ksr.model.ExtractedData;
 import pl.ksr.services.Lemmatizer;
+import pl.ksr.services.WordFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,8 @@ public class TFTextExtractor implements Extractor {
         for(Article article : articles){
             String wordsBeforeLemmatization = article.articleBody
                     .replaceAll("[^a-zA-Z ]", "").toLowerCase();
-            List<String> words = Lemmatizer.getLemmasList(wordsBeforeLemmatization);
+            List<String> wordsBeforeFiltering = Lemmatizer.getLemmasList(wordsBeforeLemmatization);
+            List<String> words = WordFilter.filter(wordsBeforeFiltering);
 
             tmp = new ExtractedData(article.label);
             for(String word : words){

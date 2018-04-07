@@ -1,5 +1,6 @@
 package pl.ksr;
 
+import org.apache.log4j.Logger;
 import pl.ksr.extractors.Extractor;
 import pl.ksr.extractors.TFIDFTextExtractor;
 import pl.ksr.extractors.TFTextExtractor;
@@ -11,12 +12,15 @@ import pl.ksr.model.metrics.EuclideanMetric;
 import pl.ksr.model.metrics.ManhattanMetric;
 import pl.ksr.model.metrics.Metric;
 import pl.ksr.services.TextDataService;
+import pl.ksr.services.WordFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
+
+    static Logger log = Logger.getLogger(App.class);
 
     public static void main(String[] args) throws IOException {
         List<Article> articles = new ArrayList<Article>();
@@ -29,25 +33,25 @@ public class App {
 
 
         int trainingDataSize = 8000;
-        int k = 15;
-        Metric metric = new ManhattanMetric();
+        int k = 9;
+        Metric metric = new EuclideanMetric();
         Extractor extractor = new TFIDFTextExtractor();
 
         long startExtraction = System.currentTimeMillis();
-        System.out.println("Extraction started with " + extractor.getClass().getSimpleName() + "...");
+        log.info("Extraction started with " + extractor.getClass().getSimpleName() + "...");
         List<ExtractedData> extractedDataList = extractor.extractFrom(articles);
         long finishExtraction = System.currentTimeMillis();
-        System.out.println("Extraction finished: " + (finishExtraction - startExtraction) / 1000 + " seconds");
-        System.out.println("Classification started...");
-        System.out.println("k: " + k);
-        System.out.println("Metric: " + metric.getClass().getSimpleName());
-        System.out.println("Documents: " + extractedDataList.size());
+        log.info("Reduced words: " + WordFilter.reducedWords);
+        log.info("Extraction finished: " + (finishExtraction - startExtraction) / 1000 + " seconds");
+        log.info("k: " + k);
+        log.info("Metric: " + metric.getClass().getSimpleName());
+        log.info("Documents: " + extractedDataList.size());
 
         List<ExtractedData> trainingData = extractedDataList.subList(0, trainingDataSize);
         List<ExtractedData> testData = extractedDataList.subList(trainingDataSize, extractedDataList.size());
 
-        System.out.println("Training data: " + trainingData.size());
-        System.out.println("Test data: " + testData.size());
+        log.info("Training data: " + trainingData.size());
+        log.info("Test data: " + testData.size());
 
         long startClassification = System.currentTimeMillis();
         KNNClassifier knn = new KNNClassifier(k, new String[]{}, trainingData);
@@ -64,10 +68,10 @@ public class App {
             } else incorrectlyClassifiedDocuments++;
         }
 
-        System.out.println("Classification finished: " + (finishClassification - startClassification) / 1000 + " seconds");
-        System.out.println("Correctly classified documents: " + correctlyClassifiedDocuments);
-        System.out.println("Incorrectly classified documents: " + incorrectlyClassifiedDocuments);
-        System.out.println("Correct: " + String.format("%.2f", (double) correctlyClassifiedDocuments / classifiedDocuments.size() * 100) + "%");
+        log.info("Classification finished: " + (finishClassification - startClassification) / 1000 + " seconds");
+        log.info("Correctly classified documents: " + correctlyClassifiedDocuments);
+        log.info("Incorrectly classified documents: " + incorrectlyClassifiedDocuments);
+        log.info("Correct: " + String.format("%.2f", (double) correctlyClassifiedDocuments / classifiedDocuments.size() * 100) + "%\n");
     }
 
 }
