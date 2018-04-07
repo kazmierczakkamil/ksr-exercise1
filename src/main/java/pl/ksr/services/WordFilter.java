@@ -1,5 +1,8 @@
 package pl.ksr.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,11 +11,11 @@ public class WordFilter {
     static public int reducedWords = 0;
 
     static {
-        redundantWords.add("the");
-        redundantWords.add("of");
-        redundantWords.add("as");
-        redundantWords.add("a");
-        redundantWords.add("an");
+        try {
+            Files.lines(Paths.get("data/stopwords.txt")).forEach(line -> redundantWords.add(line));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<String> filter(List<String> textToFilter) {
