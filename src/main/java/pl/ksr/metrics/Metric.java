@@ -1,4 +1,4 @@
-package pl.ksr.model.metrics;
+package pl.ksr.metrics;
 
 public interface Metric {
     double getDistance(double[] a, double[] b);
