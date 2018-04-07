@@ -1,4 +1,4 @@
-package pl.ksr.model.metrics;
+package pl.ksr.model.data;
 
 public class EuclideanMetric implements Metric {
     @Override
