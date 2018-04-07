@@ -1,4 +1,4 @@
-package pl.ksr.model.data;
+package pl.ksr.model.metrics;
 
 public class ManhattanMetric implements Metric {
     @Override
