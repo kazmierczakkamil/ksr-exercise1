@@ -3,14 +3,12 @@ package pl.ksr;
 import org.apache.log4j.Logger;
 import pl.ksr.extractors.Extractor;
 import pl.ksr.extractors.TFIDFTextExtractor;
-import pl.ksr.extractors.TFTextExtractor;
 import pl.ksr.model.Article;
 import pl.ksr.model.ExtractedData;
 import pl.ksr.model.LabelType;
 import pl.ksr.model.ResultData;
-import pl.ksr.model.metrics.EuclideanMetric;
-import pl.ksr.model.metrics.ManhattanMetric;
-import pl.ksr.model.metrics.Metric;
+import pl.ksr.metrics.EuclideanMetric;
+import pl.ksr.metrics.Metric;
 import pl.ksr.services.TextDataService;
 import pl.ksr.services.WordFilter;
 

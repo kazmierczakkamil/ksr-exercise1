@@ -1,4 +1,4 @@
-package pl.ksr.model.metrics;
+package pl.ksr.metrics;
 
 import pl.ksr.model.ExtractedData;
 

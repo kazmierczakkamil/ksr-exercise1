@@ -1,16 +1,13 @@
 package pl.ksr;
 
-import org.apache.commons.collections.BidiMap;
-import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.jooq.lambda.Seq;
 import pl.ksr.model.ClassifiableData;
 import pl.ksr.model.ExtractedData;
 import pl.ksr.model.ResultData;
-import pl.ksr.model.metrics.Metric;
+import pl.ksr.metrics.Metric;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class KNNClassifier {
     int k;
