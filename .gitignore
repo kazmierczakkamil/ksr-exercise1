@@ -90,3 +90,5 @@ hs_err_pid*
 .idea/
 *.iml
 reut2*
+
+log.out
