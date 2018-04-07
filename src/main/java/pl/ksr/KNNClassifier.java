@@ -1,6 +1,7 @@
 package pl.ksr;
 
 import pl.ksr.model.ClassifiableData;
+import pl.ksr.model.ExtractedData;
 import pl.ksr.model.ResultData;
 
 import java.util.ArrayList;
@@ -9,9 +10,9 @@ import java.util.List;
 public class KNNClassifier {
     int k;
     String[] labels;
-    List<ClassifiableData> trainingData;
+    List<ExtractedData> trainingData;
 
-    KNNClassifier(int k, String[] labels,List<ClassifiableData> trainingData){
+    KNNClassifier(int k, String[] labels,List<ExtractedData> trainingData){
         this.k = k;
         this.labels = labels;
         this.trainingData = trainingData;
