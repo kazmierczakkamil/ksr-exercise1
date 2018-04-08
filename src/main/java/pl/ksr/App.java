@@ -2,8 +2,10 @@ package pl.ksr;
 
 import org.apache.log4j.Logger;
 import pl.ksr.extractors.Extractor;
+import pl.ksr.extractors.NgramExtractor;
 import pl.ksr.extractors.TFIDFTextExtractor;
 import pl.ksr.metrics.JaccardMetric;
+import pl.ksr.metrics.NgramMetric;
 import pl.ksr.model.Article;
 import pl.ksr.model.ExtractedData;
 import pl.ksr.model.LabelType;
@@ -33,8 +35,8 @@ public class App {
 
         int trainingDataSize = 8000;
         int k = 9;
-        Metric metric = new EuclideanMetric();
-        Extractor extractor = new TFIDFTextExtractor();
+        Metric metric = new NgramMetric(3);
+        Extractor extractor = new NgramExtractor(3);
 
         long startExtraction = System.currentTimeMillis();
         log.info("Extraction started with " + extractor.getClass().getSimpleName() + "...");
@@ -62,7 +64,8 @@ public class App {
 
 
         for (ResultData document : classifiedDocuments) {
-            if (document.getAssignedLabel().equals(document.getExtractedData().label)) {
+            if (document.getAssignedLabel().equals(
+                document.getExtractedData().label)) {
                 correctlyClassifiedDocuments++;
             } else incorrectlyClassifiedDocuments++;
         }
