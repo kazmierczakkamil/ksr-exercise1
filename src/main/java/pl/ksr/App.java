@@ -28,15 +28,15 @@ public class App {
 
         List<Article> articles = new ArrayList<Article>();
 
-        articles = TextDataService.getCustomData("20-ng.txt");
+//        articles = TextDataService.getCustomData("20-ng.txt");
 
-//        for (int i = 0; i <= 21; ++i) {
-//            articles.addAll(
-//                    TextDataService.getData("data/reut2-" + String.format("%03d", i) + ".sgm",
-//                            new String[]{"usa", "france", "uk", "canada", "japan", "west-germany"}, LabelType.PLACE));
-//        }
-//
-//
+        for (int i = 0; i <= 21; ++i) {
+            articles.addAll(
+                    TextDataService.getData("data/reut2-" + String.format("%03d", i) + ".sgm",
+                            new String[]{"usa", "france", "uk", "canada", "japan", "west-germany"}, LabelType.PLACE));
+        }
+
+
         int trainingDataSize = (int)(Configs.getTrainingDataPercentage() / 100.0 * articles.size());
         int k = Configs.getK();
 

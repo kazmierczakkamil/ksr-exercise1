@@ -25,6 +25,8 @@ public class Configs {
 
     public static Metric getMetric() {
         switch(config.getProperty("metric")) {
+            case "cosine":
+                return new CosDistance();
             case "czebyszew":
                 return new CzebyszewMetric();
             case "euclidean":
