@@ -28,13 +28,15 @@ public class App {
 
         List<Article> articles = new ArrayList<Article>();
 
-        for (int i = 0; i <= 21; ++i) {
-            articles.addAll(
-                    TextDataService.getData("data/reut2-" + String.format("%03d", i) + ".sgm",
-                            new String[]{"usa", "france", "uk", "canada", "japan", "west-germany"}, LabelType.PLACE));
-        }
+        articles = TextDataService.getCustomData("20-ng.txt");
 
-
+//        for (int i = 0; i <= 21; ++i) {
+//            articles.addAll(
+//                    TextDataService.getData("data/reut2-" + String.format("%03d", i) + ".sgm",
+//                            new String[]{"usa", "france", "uk", "canada", "japan", "west-germany"}, LabelType.PLACE));
+//        }
+//
+//
         int trainingDataSize = (int)(Configs.getTrainingDataPercentage() / 100.0 * articles.size());
         int k = Configs.getK();
 
@@ -61,6 +63,7 @@ public class App {
         KNNClassifier knn = new KNNClassifier(k, new String[]{}, trainingData);
 
         List<ResultData> classifiedDocuments = knn.classify(testData, metric);
+        System.out.println("Classified documents: " + classifiedDocuments.size());
         long finishClassification = System.currentTimeMillis();
         int correctlyClassifiedDocuments = 0;
         int incorrectlyClassifiedDocuments = 0;

@@ -6,10 +6,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import pl.ksr.model.Article;
 import pl.ksr.model.LabelType;
-import pl.ksr.similarityMethods.SimilarityMethod;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 // reading data from file
 public class TextDataService {
@@ -54,6 +55,19 @@ public class TextDataService {
 
         return articles;
 
+    }
+
+    public static List<Article> getCustomData(String path) {
+        Set<Article> articles = new HashSet<>();
+        String data = FileService.readFile(path);
+        String lines[] = data.split("\\r?\\n");
+
+        for (String line : lines) {
+            String[] labelAndBody = line.split("\\t+");
+            articles.add(new Article(labelAndBody[0], labelAndBody[1]));
+        }
+
+        return new ArrayList<>(articles);
     }
 
     private static String prepareFile(String path) {
