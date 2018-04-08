@@ -33,7 +33,7 @@ public class KNNClassifier {
             }
 
             List<String> labelsOfNearestNeighbors = nearestNeighbors.entrySet().parallelStream()
-                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
                     .limit(k)
                     .map(e -> e.getKey().label)
                     .collect(Collectors.toList());
