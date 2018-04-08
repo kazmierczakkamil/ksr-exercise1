@@ -4,9 +4,7 @@ import pl.ksr.extractors.Extractor;
 import pl.ksr.extractors.NgramExtractor;
 import pl.ksr.extractors.TFIDFTextExtractor;
 import pl.ksr.extractors.TFTextExtractor;
-import pl.ksr.metrics.EuclideanMetric;
-import pl.ksr.metrics.Metric;
-import pl.ksr.metrics.NgramMetric;
+import pl.ksr.metrics.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,8 +25,14 @@ public class Configs {
 
     public static Metric getMetric() {
         switch(config.getProperty("metric")) {
+            case "czebyszew":
+                return new CzebyszewMetric();
             case "euclidean":
                 return new EuclideanMetric();
+            case "jaccard":
+                return new JaccardMetric();
+            case "manhattan":
+                return new ManhattanMetric();
             case "ngram":
                 return new NgramMetric(Integer.parseInt(config.getProperty("n")));
             default:
