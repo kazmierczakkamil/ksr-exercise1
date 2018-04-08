@@ -1,0 +1,5 @@
+k=9
+training=60
+metric=euclidean
+extractor=TFIDF
+n=3

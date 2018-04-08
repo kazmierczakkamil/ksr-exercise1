@@ -18,12 +18,14 @@ import pl.ksr.services.WordFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class App {
 
     static Logger log = Logger.getLogger(App.class);
 
     public static void main(String[] args) throws IOException {
+
         List<Article> articles = new ArrayList<Article>();
 
         for (int i = 0; i <= 21; ++i) {
@@ -33,10 +35,11 @@ public class App {
         }
 
 
-        int trainingDataSize = 8000;
-        int k = 9;
-        Metric metric = new NgramMetric(3);
-        Extractor extractor = new NgramExtractor(3);
+        int trainingDataSize = (int)(Configs.getTrainingDataPercentage() / 100.0 * articles.size());
+        int k = Configs.getK();
+
+        Metric metric = Configs.getMetric();
+        Extractor extractor = Configs.getExtractor();
 
         long startExtraction = System.currentTimeMillis();
         log.info("Extraction started with " + extractor.getClass().getSimpleName() + "...");
