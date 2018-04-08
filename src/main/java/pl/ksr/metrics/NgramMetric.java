@@ -19,6 +19,6 @@ public class NgramMetric implements Metric {
         for(String key : keySet)
             if(b.features.containsKey(key))
                 numberOfCommonNgrams++;
-        return numberOfCommonNgrams / (keySet.size() - n + 1);
+        return 1 - numberOfCommonNgrams / (keySet.size() - n + 1);
     }
 }
