@@ -29,7 +29,6 @@ public class Configs {
     }
 
     public static List<Article> getData() {
-        ;
         switch (config.getProperty("source")) {
             case "reuters":
                 List<Article> articles = new ArrayList<>();
