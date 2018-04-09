@@ -1,3 +1,3 @@
 package pl.ksr.model;
 
-public enum LabelType { PLACE, TOPIC, DATELINE }
+public enum LabelType { PLACE, TOPIC }
