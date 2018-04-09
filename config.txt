@@ -1,3 +1,6 @@
+source=reuters
+label=places
+labels=west-germany,france,uk,canada,japan
 k=9
 training=60
 metric=cosine

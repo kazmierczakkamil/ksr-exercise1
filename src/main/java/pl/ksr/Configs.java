@@ -5,10 +5,15 @@ import pl.ksr.extractors.NgramExtractor;
 import pl.ksr.extractors.TFIDFTextExtractor;
 import pl.ksr.extractors.TFTextExtractor;
 import pl.ksr.metrics.*;
+import pl.ksr.model.Article;
+import pl.ksr.model.LabelType;
+import pl.ksr.services.TextDataService;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class Configs {
@@ -23,8 +28,34 @@ public class Configs {
         }
     }
 
+    public static List<Article> getData() {;
+        switch(config.getProperty("source")) {
+            default:
+            case "reuters":
+                List<Article> articles = new ArrayList<>();
+                LabelType labelType;
+                switch(config.getProperty("label")) {
+                    default:
+                    case "places":
+                        labelType = LabelType.PLACE;
+                    case "topics":
+                        labelType = LabelType.TOPIC;
+                }
+                String[] labels = config.getProperty("labels").split(",");
+                for (int i = 0; i <= 21; ++i) {
+                    articles.addAll(
+                            TextDataService.getData("data/reut2-" + String.format("%03d", i) + ".sgm",
+                            labels, labelType));
+                }
+                return articles;
+            case "custom":
+                return TextDataService.getCustomData("20-ng.txt");
+        }
+    }
+
     public static Metric getMetric() {
         switch(config.getProperty("metric")) {
+            default:
             case "cosine":
                 return new CosDistance();
             case "czebyszew":
@@ -37,8 +68,6 @@ public class Configs {
                 return new ManhattanMetric();
             case "ngram":
                 return new NgramMetric(Integer.parseInt(config.getProperty("n")));
-            default:
-                return new EuclideanMetric();
         }
     }
 

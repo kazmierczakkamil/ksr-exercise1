@@ -26,20 +26,9 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        List<Article> articles = new ArrayList<Article>();
-
-//        articles = TextDataService.getCustomData("20-ng.txt");
-
-        for (int i = 0; i <= 21; ++i) {
-            articles.addAll(
-                    TextDataService.getData("data/reut2-" + String.format("%03d", i) + ".sgm",
-                            new String[]{"usa", "france", "uk", "canada", "japan", "west-germany"}, LabelType.PLACE));
-        }
-
-
+        List<Article> articles = Configs.getData();
         int trainingDataSize = (int)(Configs.getTrainingDataPercentage() / 100.0 * articles.size());
         int k = Configs.getK();
-
         Metric metric = Configs.getMetric();
         Extractor extractor = Configs.getExtractor();
 
