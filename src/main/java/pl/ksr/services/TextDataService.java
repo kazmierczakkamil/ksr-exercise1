@@ -32,8 +32,6 @@ public class TextDataService {
                     label = reuter.selectFirst("places").text();
                 else if (labelType == LabelType.TOPIC)
                     label = reuter.selectFirst("topics").text();
-                else if (labelType == LabelType.DATELINE)
-                    label = reuter.select("dateline").text();
                 articleBody = reuter.selectFirst("article").text();
             } catch (NullPointerException e) {
                 continue;
