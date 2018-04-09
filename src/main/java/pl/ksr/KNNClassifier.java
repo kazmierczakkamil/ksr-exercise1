@@ -1,10 +1,9 @@
 package pl.ksr;
 
 import org.jooq.lambda.Seq;
-import pl.ksr.model.ClassifiableData;
+import pl.ksr.metrics.Metric;
 import pl.ksr.model.ExtractedData;
 import pl.ksr.model.ResultData;
-import pl.ksr.metrics.Metric;
 
 import java.util.*;
 import java.util.stream.Collectors;
