@@ -28,33 +28,37 @@ public class Configs {
         }
     }
 
-    public static List<Article> getData() {;
-        switch(config.getProperty("source")) {
-            default:
+    public static List<Article> getData() {
+        switch (config.getProperty("source")) {
             case "reuters":
                 List<Article> articles = new ArrayList<>();
                 LabelType labelType;
-                switch(config.getProperty("label")) {
-                    default:
+                switch (config.getProperty("label")) {
                     case "places":
                         labelType = LabelType.PLACE;
+                        break;
                     case "topics":
                         labelType = LabelType.TOPIC;
+                        break;
+                    default:
+                        labelType = LabelType.PLACE;
                 }
                 String[] labels = config.getProperty("labels").split(",");
                 for (int i = 0; i <= 21; ++i) {
                     articles.addAll(
                             TextDataService.getData("data/reut2-" + String.format("%03d", i) + ".sgm",
-                            labels, labelType));
+                                    labels, labelType));
                 }
                 return articles;
             case "custom":
                 return TextDataService.getCustomData("20-ng.txt");
+            default:
+                return null;
         }
     }
 
     public static Metric getMetric() {
-        switch(config.getProperty("metric")) {
+        switch (config.getProperty("metric")) {
             default:
             case "cosine":
                 return new CosDistance();
@@ -72,7 +76,7 @@ public class Configs {
     }
 
     public static Extractor getExtractor() {
-        switch(config.getProperty("extractor")) {
+        switch (config.getProperty("extractor")) {
             case "TF":
                 return new TFTextExtractor();
             case "TFIDF":
