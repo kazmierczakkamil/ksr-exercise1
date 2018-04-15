@@ -31,6 +31,7 @@ public class App {
         int k = Configs.getK();
         Metric metric = Configs.getMetric();
         Extractor extractor = Configs.getExtractor();
+        int limit = Configs.getLimit();
 
         long startExtraction = System.currentTimeMillis();
         log.info("Extraction started with " + extractor.getClass().getSimpleName() + "...");
@@ -41,6 +42,7 @@ public class App {
         log.info("k: " + k);
         log.info("Metric: " + metric.getClass().getSimpleName());
         log.info("Documents: " + extractedDataList.size());
+        log.info("Limit: " + limit);
 
         List<ExtractedData> trainingData = extractedDataList.subList(0, trainingDataSize);
         List<ExtractedData> testData = extractedDataList.subList(trainingDataSize, extractedDataList.size());
@@ -51,7 +53,7 @@ public class App {
         long startClassification = System.currentTimeMillis();
         KNNClassifier knn = new KNNClassifier(k, new String[]{}, trainingData);
 
-        List<ResultData> classifiedDocuments = knn.classify(testData, metric);
+        List<ResultData> classifiedDocuments = knn.classify(testData, metric, 20);
         System.out.println("Classified documents: " + classifiedDocuments.size());
         long finishClassification = System.currentTimeMillis();
         int correctlyClassifiedDocuments = 0;

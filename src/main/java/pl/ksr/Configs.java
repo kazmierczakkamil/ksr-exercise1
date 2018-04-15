@@ -99,4 +99,6 @@ public class Configs {
     public static int getK() {
         return Integer.parseInt(config.getProperty("k"));
     }
+
+    public static int getLimit() { return Integer.parseInt(config.getProperty("limit")); }
 }

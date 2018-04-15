@@ -19,8 +19,35 @@ public class KNNClassifier {
         this.trainingData = trainingData;
     }
 
-    public List<ResultData> classify(List<ExtractedData> testData, Metric metric) {
+    public List<ResultData> classify(List<ExtractedData> testData, Metric metric, int limitSize) {
         List<ResultData> results = new ArrayList<>();
+        // sorting and cutting
+        if (limitSize != 0) {
+            List<ExtractedData> modifiedTrainingData = new ArrayList<>();
+            List<ExtractedData> modifiedTestData = new ArrayList<>();
+            for (ExtractedData data : testData) {
+                ExtractedData tmp = new ExtractedData(data.label);
+                tmp.features = data.features.entrySet().stream()
+                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                        .limit(limitSize)
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+                modifiedTestData.add(tmp);
+            }
+
+            for (ExtractedData data : trainingData) {
+                ExtractedData tmp = new ExtractedData(data.label);
+                tmp.features = data.features.entrySet().stream()
+                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                        .limit(limitSize)
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+                modifiedTrainingData.add(tmp);
+            }
+
+            testData = modifiedTestData;
+            trainingData = modifiedTrainingData;
+        }
 
         testData.parallelStream().forEach(documentToClassify -> {
             ResultData resultData = new ResultData(documentToClassify);
